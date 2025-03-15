@@ -4,6 +4,7 @@ const { validationResult, check } = require('express-validator');
 
 const router = Router();
 
+//POST
 router.post('/', [
     check('serial', 'El serial es obligatorio').not().isEmpty(),
     check('titulo', 'El titulo es obligatorio').not().isEmpty(),
@@ -56,6 +57,7 @@ router.post('/', [
 
 });
 
+//GET
 router.get('/', async function(req, res) {
     try {
         const medias = await Media.find().populate([
@@ -71,6 +73,8 @@ router.get('/', async function(req, res) {
         res.status(500).send('message error')
     }
 });
+
+//UPDATE
 
 
 

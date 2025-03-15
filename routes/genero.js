@@ -4,6 +4,7 @@ const { validationResult, check } = require('express-validator');
 
 const router = Router();
 
+//POST
 router.post('/', [
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('estado', 'El estado es obligatorio').isIn(['Activo','Inactivo']),
@@ -35,6 +36,7 @@ router.post('/', [
 
 });
 
+//GET
 router.get('/', async function(req, res) {
     try {
         const generos = await Genero.find();
@@ -45,5 +47,37 @@ router.get('/', async function(req, res) {
         res.status(500).send('message error')
     }    
 })
+
+//UPDATE
+router.put('/:generoId', [
+    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    check('estado', 'El estado es obligatorio').isIn(['Activo','Inactivo']),
+    check('descripcion', 'La descripción es obligatoria').not().isEmpty(),
+], async function(req, res) {
+
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ message: errors.array() });
+        }
+
+        let genero = await Genero.findById(req.params.generoId);
+        if (!genero) {
+            return res.status(400).send('Género no encontrado');
+        }
+
+        genero.nombre = req.body.nombre;
+        genero.estado = req.body.estado;
+        genero.descripcion = req.body.descripcion;
+        genero.fechaActualizacion = new Date();
+
+        genero = await genero.save();
+        res.send(genero);
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('message error');
+    }
+});
 
 module.exports = router;

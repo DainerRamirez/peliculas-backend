@@ -78,7 +78,6 @@ router.put('/:directorId', [
         res.status(500).send('message error')
     }
 
-
 });
 
 module.exports = router;
