@@ -80,4 +80,27 @@ router.put('/:directorId', [
 
 });
 
+
+//DELETE
+router.delete('/:directorId', async function (req, res) {
+    try {
+        // Busca el director por ID
+        let director = await Director.findById(req.params.directorId);
+
+        // Verificar si el director existe
+        if (!director) {
+            return res.status(404).send('Director no encontrado');
+        }
+
+        // Elimina el director de la base de datos
+        await Director.findByIdAndDelete(req.params.directorId);
+
+        // Responde con un mensaje de éxito
+        res.send({ message: 'Director eliminado correctamente' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('message error');
+    }
+});
+
 module.exports = router;

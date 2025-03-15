@@ -1,11 +1,11 @@
 const { ObjectId } = require('mongodb');
 const { Schema, model } = require('mongoose');
 
-const MediaSchema = Schema({
+const MultimediaSchema = Schema({
     serial: { type: String, required: true, unique: true },
     titulo: { type: String, required: true },
     sinopsis: { type: String, required: true, },
-    urel: { type: String, required: true, unique: true },
+    url: { type: String, required: true, unique: true },
     imagenPortada: { type: String, required: true},
     añoEstreno: { type: Number, required: true},
     genero: { type: Schema.Types.ObjectId, ref: 'Genero', required: true },
@@ -17,4 +17,4 @@ const MediaSchema = Schema({
 
 });
 
-module.exports = model('Media', MediaSchema);
+module.exports = model('Multimedia', MultimediaSchema);

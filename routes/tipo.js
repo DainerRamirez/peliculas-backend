@@ -80,4 +80,21 @@ router.put('/:tipoId', [
     }
 });
 
+// DELETE
+router.delete('/:tipoId', async function(req, res) {
+    try {
+        let tipo = await Tipo.findById(req.params.tipoId);
+        if (!tipo) {
+            return res.status(404).send('Tipo no encontrado');
+        }
+
+        await Tipo.findByIdAndDelete(req.params.tipoId);
+
+        res.send({ message: 'Tipo eliminado correctamente' });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('message error');
+    }
+});
+
 module.exports = router;

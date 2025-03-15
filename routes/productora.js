@@ -85,4 +85,21 @@ router.put('/:productoraId', [
     }
 });
 
+//DELETE
+router.delete('/:productoraId', async function(req, res) {
+    try {
+        let productora = await Productora.findById(req.params.productoraId);
+        if (!productora) {
+            return res.status(404).send('Productora no encontrado');
+        }
+
+        await Productora.findByIdAndDelete(req.params.productoraId);
+
+        res.send({ message: 'Productora eliminado correctamente' });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('message error');
+    }
+});
+
 module.exports = router;

@@ -13,8 +13,7 @@ app.use('/director', require('./routes/director'));
 app.use('/genero', require('./routes/genero'));
 app.use('/tipo', require('./routes/tipo'));
 app.use('/productora', require('./routes/productora'));
-app.use('/media', require('./routes/media'));
-
+app.use('/multimedia', require('./routes/multimedia'));
 
 
 app.listen(port, () => {
