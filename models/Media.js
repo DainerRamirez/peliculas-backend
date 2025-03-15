@@ -1,6 +1,6 @@
 const { ObjectId } = require('mongodb');
 const { Schema, model } = require('mongoose');
-const Tipo = require('./Tipo');
+
 
 const MediaSchema = Schema({
     serial: { type: String, required: true, unique: true },
