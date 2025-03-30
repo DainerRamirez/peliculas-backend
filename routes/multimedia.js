@@ -186,7 +186,7 @@ router.delete('/:multimediaId', async function(req, res) {
 router.get('/:multimediaId', async function(req, res) {
     try {
         const multimedia = await Multimedia.findById(req.params.multimediaId);
-            if(!multedia){
+            if(!multimedia){
                 return res.status(404).send('Multimedia no encontrada');
         }
         res.send(multimedia);
