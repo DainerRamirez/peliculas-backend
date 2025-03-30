@@ -53,24 +53,20 @@ router.put('/:tipoId', [
 ], async function(req, res) {
 
     try {
-        // Validar errores en los campos
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ message: errors.array() });
         }
 
-        // Buscar el tipo por ID
         let tipo = await Tipo.findById(req.params.tipoId);
         if (!tipo) {
             return res.status(400).send('Tipo no encontrado');
         }
 
-        // Actualizar los campos del tipo
         tipo.nombre = req.body.nombre;
         tipo.descripcion = req.body.descripcion;
         tipo.fechaActualizacion = new Date();
 
-        // Guardar los cambios en la base de datos
         tipo = await tipo.save();
         res.send(tipo);
 

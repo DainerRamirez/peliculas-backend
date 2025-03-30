@@ -83,16 +83,14 @@ router.put('/:generoId', [
 // DELETE
 router.delete('/:generoId', async function(req, res) {
     try {
-        // Verifica si el género existe
+
         let genero = await Genero.findById(req.params.generoId);
         if (!genero) {
             return res.status(404).send('Género no encontrado');
         }
 
-        // Elimina el género
         await Genero.findByIdAndDelete(req.params.generoId);
 
-        // Responde con un mensaje de éxito
         res.send({ message: 'Género eliminado correctamente' });
     } catch (error) {
         console.log(error);

@@ -9,6 +9,7 @@ const Tipo = require('../models/Tipo');
 const router = Router();
 
 //POST
+
 router.post('/', [
     check('serial', 'El serial es obligatorio').not().isEmpty(),
     check('titulo', 'El titulo es obligatorio').not().isEmpty(),
@@ -21,7 +22,7 @@ router.post('/', [
     check('productora', 'La productora es obligatorio').not().isEmpty(),
     check('tipo', 'El tipo es obligatorio').not().isEmpty(),
 ], async function(req, res) {
-    
+
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -78,6 +79,7 @@ router.post('/', [
     }
 
 });
+
 
 //GET
 router.get('/', async function(req, res) {
@@ -165,22 +167,32 @@ router.put('/:multimediaId', [
 // DELETE
 router.delete('/:multimediaId', async function(req, res) {
     try {
-        // Buscar el documento Multimedia por su ID
+
         let multimedia = await Multimedia.findById(req.params.multimediaId);
 
-        // Verifica si el registro existe
         if (!multimedia) {
             return res.status(404).send('Multimedia no encontrada');
         }
 
-        // Eliminar el registro Multimedia
         await Multimedia.findByIdAndDelete(req.params.multimediaId);
 
-        // Respuesta de éxito
         res.send({ message: 'Multimedia eliminada correctamente' });
     } catch (error) {
         console.error('Error en el servidor:', error);
         res.status(500).send('Error en el servidor');
+    }
+});
+
+router.get('/:multimediaId', async function(req, res) {
+    try {
+        const multimedia = await Multimedia.findById(req.params.multimediaId);
+            if(!multedia){
+                return res.status(404).send('Multimedia no encontrada');
+        }
+        res.send(multimedia);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('message error');
     }
 });
 
